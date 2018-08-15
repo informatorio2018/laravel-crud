@@ -13,18 +13,29 @@ class CreateProductosTable extends Migration
      */
     public function up()
     {
+        Schema::create('categorias', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('categoria');
+            $table->timestamps();
+        });
+
+
         Schema::create('productos', function (Blueprint $table) {
             $table->increments('id');
             $table->string('codArt');
             $table->string('producto');
             $table->string('descripcion');
             $table->text('foto')->nullable();
-            // $table->integer('cliente_id')->unsigned();
+            
+            $table->unsignedInteger('categoria_id');
+     
             $table->timestamps();
 
 
-            // $table->foreign('cliente_id')->references('id')->on('clientes');
+            $table->foreign('categoria_id')->references('id')->on('categorias');
         });
+
+
     }
 
     /**

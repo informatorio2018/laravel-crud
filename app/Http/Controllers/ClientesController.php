@@ -8,6 +8,10 @@ use Image;
 
 class ClientesController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth');
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -39,6 +43,7 @@ class ClientesController extends Controller
      */
     public function store(Request $request)
     {
+
         $ruta = public_path().'/img/';
 
         $imagenOriginal = $request->file('foto');
@@ -54,15 +59,19 @@ class ClientesController extends Controller
 
         $imagen->save($ruta.$tmp_name,100);
 
+      
 
-        // $cliente = new Cliente;
+        $cliente = new Cliente;
 
-        // $cliente->nombre= $request->nombre;
-        // $cliente->direccion = $request->direccion;
+        $cliente->nombre= $request->nombre;
+        $cliente->direccion = $request->direccion;
 
-        // $cliente->save();
+        $cliente->foto = '\img\\'.$tmp_name;
 
-        // return redirect('/clientes');
+
+        $cliente->save();
+
+        return redirect('/clientes');
 
 
     }
@@ -116,15 +125,27 @@ class ClientesController extends Controller
      */
     public function update(Request $request, $id)
     {
-      
+         $ruta = public_path().'/img/';
+
+        $imagenOriginal = $request->file('foto');
+
+
+        $imagen = Image::make($imagenOriginal);
+
+        $imagen->resize(320,240);
+        // nombre.ext
+
+        $tmp_name = $this->random_string().'.'.$imagenOriginal->getClientOriginalExtension();
+
+
+        $imagen->save($ruta.$tmp_name,100);
+
 
         $cliente = Cliente::find($id);
-        // $cliente->fill($request->all())->save();
-        // return redirect()->route('clientes.index');
-
+      
         $cliente->nombre = $request->nombre;
         $cliente->direccion = $request->direccion;
-       
+        $cliente->foto = '\img\\'.$tmp_name;
         $cliente->save();
          return redirect('/clientes');
     }

@@ -8,11 +8,21 @@
 </head>
 <body>
 	
-	@include('partials.navbar')
+                        <a href="{{ url('/home') }}">Home</a>
+                        <a href="{{ url('/clientes') }}">Clientes</a>
 
+						<div class="container">
+								@yield('contenido')
+						</div>
+	
 
-	<div class="container">
-		@yield('contenido')
-	</div>
+                    {{-- @else
+                        <a href="{{ route('login') }}">Login</a>
+                        <a href="{{ route('register') }}">Register</a>
+                   
+                    @endauth --}}
+	{{-- @include('partials.navbar') --}}
+	
+	
 </body>
 </html>

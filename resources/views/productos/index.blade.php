@@ -19,7 +19,7 @@
 				<td>{{$producto->codArt}}</td>
 				<td>{{$producto->producto}}</td>
 				<td>{{$producto->descripcion}}</td>
-				<td><img src="{{$producto->foto}}" alt="">	</td>
+				<td><img src="{{$producto->foto}}" alt="" width="200px">	</td>
 			</tr>
 			@endforeach
 		</tbody>

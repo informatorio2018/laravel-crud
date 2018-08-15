@@ -4,8 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Producto;
+use App\Categoria;
+use Image;
 class ProductosController extends Controller
 {
+
+    public function __construct(){
+        // $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -15,8 +22,8 @@ class ProductosController extends Controller
     public function index()
     {
         $productos = Producto::orderBy('created_at','desc')->paginate(3);
-        return $productos->paginate();
-        // return view('productos.index',compact('productos'));
+       
+        return view('productos.index',compact('productos'));
     }
 
     
@@ -28,7 +35,8 @@ class ProductosController extends Controller
      */
     public function create()
     {
-        //
+        $categorias = Categoria::all();
+         return view('productos.create',compact('categorias'));
     }
 
     /**
@@ -39,7 +47,39 @@ class ProductosController extends Controller
      */
     public function store(Request $request)
     {
-        
+        $ruta = public_path().'/img/';
+
+        $imagenOriginal = $request->file('foto');
+
+
+        $imagen = Image::make($imagenOriginal);
+
+        $imagen->resize(320,240);
+        // nombre.ext
+
+        $tmp_name = $this->random_string().'.'.$imagenOriginal->getClientOriginalExtension();
+
+
+        $imagen->save($ruta.$tmp_name,100);
+
+      
+
+        $producto = new Producto;
+
+
+        $producto->producto= $request->producto;
+        $producto->descripcion = $request->descripcion;
+        $producto->codArt = $request->codArticulo;
+
+        $producto->categoria_id =$request->categoria_id;
+
+        $producto->foto = '\img\\'.$tmp_name;
+
+
+        $producto->save();
+
+        return redirect('/productos');
+
     }
 
     /**
@@ -86,4 +126,16 @@ class ProductosController extends Controller
     {
         //
     }
+     public function random_string(){
+
+        $key = '';
+        $keys = array_merge(range('a', 'z'),range(0, 9));
+
+        for ($i=0; $i <10 ; $i++) { 
+            $key .= $keys[array_rand($keys)];
+            }
+
+        return $key;
+
+        }
 }

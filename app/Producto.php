@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Producto extends Model
 {
-    protected $fillable = ['codArt','producto','descripcion','foto'];
+    protected $fillable = ['codArt','producto','descripcion','foto','categoria_id'];
 
-    public function clientes()
+    public function categoria()
     {
-        return $this->hasMany('App\Cliente');
+        return $this->belongsTo('App\Categoria');
     }
 
 }

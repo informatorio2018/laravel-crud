@@ -5,10 +5,10 @@
 	<h2>Editando Cliente</h2>
 
 	{!! Form::open(['action' => ['ClientesController@update',$cliente->id],
-					'method'=>'POST',
 					'file'=>true,
-					'enctype'=>'multipart/form-data',
-					'class'=>'form']) !!}
+					'method'=>'POST',
+					
+					'enctype'=>'multipart/form-data']) !!}
 
 
 		<div class="form-group">
@@ -19,6 +19,7 @@
     		{{ Form::label('direccion','Direccion') }}
     		{{ Form::text('direccion',$cliente->direccion,(['class'=>'form-control','placeholder'=>'Ingrese su direccion'])) }}
 		</div>
+		
 
 		<div class="form-group">
     		{{ Form::label('foto','Foto') }}
@@ -31,3 +32,4 @@
 	{!! Form::close() !!}
 	
 @endsection
+

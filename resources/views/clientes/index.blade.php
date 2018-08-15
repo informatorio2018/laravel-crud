@@ -8,6 +8,7 @@
 				<th>ID</th>
 				<th>Nombre</th>
 				<th>Direccion</th>
+				<th>Foto</th>
 				<th>Acciones</th>
 			</tr>
 		</thead>
@@ -17,6 +18,8 @@
 				<td>{{$cliente->id}}</td>
 				<td>{{$cliente->nombre}}</td>
 				<td>{{$cliente->direccion}}</td>
+
+				<td><img src="{{$cliente->foto}}" alt="" width="200px"></td>
 				<td>
 					<a href="{{route('clientes.show',$cliente->id)}}" class="btn btn-primary">Ver</a>
 					<a href="{{route('clientes.edit',$cliente->id)}}" class="btn btn-info">Editar</a>
@@ -27,7 +30,7 @@
 					{!! Form::close() !!}				
 
 				</td>
-				{{-- <td><img src="{{$cliente->foto}}" alt="">	</td> --}}
+			
 			</tr>
 			@endforeach
 		</tbody>

@@ -1,6 +1,6 @@
-@extends('main')
+@extends('layouts.app')
 
-@section('contenido')
+@section('content')
 	
 <div class="card" style="width: 18rem;">
   <img class="card-img-top" src=".../100px180/" alt="Card image cap">
